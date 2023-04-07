@@ -21,6 +21,8 @@ RArea RLayoutGetAreaAtXY(const RLayout *self, int x, int y);
 RArea RLayoutGetAreaIndex(const RLayout *self, int index);
 RArea RLayoutGetAreaByName(const RLayout *self, const char *name, int len);
 
+const char *RLayoutGetNameIndex(const RLayout *self, int index);
+
 void RLayoutFindTopBottomEdges(const RLayout *self, const RArea *area, int *top,
                                int *bottom);
 int RLayoutFindBottomEdge(const RLayout *self, const RArea *area);
