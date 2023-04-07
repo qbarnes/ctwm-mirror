@@ -13,6 +13,7 @@
 #include <pwd.h>
 
 #include "screen.h"
+#include "r_layout.h"
 #include "parse.h"
 #include "parse_int.h"
 #include "version.h"
@@ -265,6 +266,33 @@ m4_defs(Display *display, const char *host)
 	}
 	WR_DEF("CLASS", vc);
 	WR_DEF("COLOR", color);
+
+	if (RLayoutNumMonitors(Scr->Layout) > 0) {
+		WR_NUM("MONITOR_COUNT", RLayoutNumMonitors(Scr->Layout));
+
+		for ( int i = 0; i < RLayoutNumMonitors(Scr->Layout); i++) {
+			const char *name = RLayoutGetNameIndex(Scr->Layout, i);
+			RArea area       = RLayoutGetAreaIndex(Scr->Layout, i);
+
+			if (!name) name = "(unknown)";
+
+			fprintf(tmpf, "define(`MONITOR__%s', `%d')\n", name, i);
+
+			fprintf(tmpf, "define(`MONITOR_%d', `%s')\n", i, name);
+
+			fprintf(tmpf, "define(`MONITOR_%d_WIDTH', `%d')\n",
+				i, area.width);
+
+			fprintf(tmpf, "define(`MONITOR_%d_HEIGHT', `%d')\n",
+				i, area.height);
+
+			fprintf(tmpf, "define(`MONITOR_%d_X', `%d')\n",
+				i, area.x);
+
+			fprintf(tmpf, "define(`MONITOR_%d_Y', `%d')\n",
+				i, area.y);
+		}
+	}
 
 	/*
 	 * Bits of "how this ctwm invocation is being run" data
