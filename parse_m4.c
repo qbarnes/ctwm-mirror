@@ -13,6 +13,7 @@
 #include <pwd.h>
 
 #include "screen.h"
+#include "r_area.h"
 #include "r_layout.h"
 #include "parse.h"
 #include "parse_int.h"
@@ -274,9 +275,12 @@ m4_defs(Display *display, const char *host)
 			const char *name = RLayoutGetNameIndex(Scr->Layout, i);
 			RArea area       = RLayoutGetAreaIndex(Scr->Layout, i);
 
-			if (!name) name = "(unknown)";
+			if (!name || !RAreaIsValid(&area))
+				continue;
 
-			fprintf(tmpf, "define(`MONITOR__%s', `%d')\n", name, i);
+			if (strcmp(name, ""))
+				fprintf(tmpf, "define(`MONITOR_%s', `%d')\n",
+					name, i);
 
 			fprintf(tmpf, "define(`MONITOR_%d', `%s')\n", i, name);
 
