@@ -268,34 +268,30 @@ m4_defs(Display *display, const char *host)
 	WR_DEF("CLASS", vc);
 	WR_DEF("COLOR", color);
 
-	if (RLayoutNumMonitors(Scr->Layout) > 0) {
-		WR_NUM("MONITOR_COUNT", RLayoutNumMonitors(Scr->Layout));
+	WR_NUM("XRR_MONITOR_COUNT", RLayoutNumMonitors(Scr->Layout));
 
-		for ( int i = 0; i < RLayoutNumMonitors(Scr->Layout); i++) {
-			const char *name = RLayoutGetNameIndex(Scr->Layout, i);
-			RArea area       = RLayoutGetAreaIndex(Scr->Layout, i);
+	for ( int i = 0; i < RLayoutNumMonitors(Scr->Layout); i++) {
+		const char *name = RLayoutGetNameIndex(Scr->Layout, i);
+		RArea area       = RLayoutGetAreaIndex(Scr->Layout, i);
 
-			if (!name || !RAreaIsValid(&area))
-				continue;
+		if (name && name[0])
+			fprintf(tmpf, "define(`XRR_MONITOR_%s', `%d')\n",
+				name, i);
 
-			if (strcmp(name, ""))
-				fprintf(tmpf, "define(`MONITOR_%s', `%d')\n",
-					name, i);
+		fprintf(tmpf, "define(`XRR_MONITOR_%d', `%s')\n",
+			i, name ? name : "");
 
-			fprintf(tmpf, "define(`MONITOR_%d', `%s')\n", i, name);
+		fprintf(tmpf, "define(`XRR_MONITOR_%d_WIDTH', `%d')\n",
+			i, area.width);
 
-			fprintf(tmpf, "define(`MONITOR_%d_WIDTH', `%d')\n",
-				i, area.width);
+		fprintf(tmpf, "define(`XRR_MONITOR_%d_HEIGHT', `%d')\n",
+			i, area.height);
 
-			fprintf(tmpf, "define(`MONITOR_%d_HEIGHT', `%d')\n",
-				i, area.height);
+		fprintf(tmpf, "define(`XRR_MONITOR_%d_X', `%d')\n",
+			i, area.x);
 
-			fprintf(tmpf, "define(`MONITOR_%d_X', `%d')\n",
-				i, area.x);
-
-			fprintf(tmpf, "define(`MONITOR_%d_Y', `%d')\n",
-				i, area.y);
-		}
+		fprintf(tmpf, "define(`XRR_MONITOR_%d_Y', `%d')\n",
+			i, area.y);
 	}
 
 	/*
