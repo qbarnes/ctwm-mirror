@@ -270,28 +270,28 @@ m4_defs(Display *display, const char *host)
 
 	WR_NUM("XRR_MONITOR_COUNT", RLayoutNumMonitors(Scr->Layout));
 
-	for ( int i = 0; i < RLayoutNumMonitors(Scr->Layout); i++) {
+	for(int i = 0; i < RLayoutNumMonitors(Scr->Layout); i++) {
 		const char *name = RLayoutGetNameIndex(Scr->Layout, i);
 		RArea area       = RLayoutGetAreaIndex(Scr->Layout, i);
 
-		if (name && name[0])
+		if(name && name[0])
 			fprintf(tmpf, "define(`XRR_MONITOR_%s', `%d')\n",
-				name, i);
+			        name, i);
 
 		fprintf(tmpf, "define(`XRR_MONITOR_%d', `%s')\n",
-			i, name ? name : "");
+		        i, name ? name : "");
 
 		fprintf(tmpf, "define(`XRR_MONITOR_%d_WIDTH', `%d')\n",
-			i, area.width);
+		        i, area.width);
 
 		fprintf(tmpf, "define(`XRR_MONITOR_%d_HEIGHT', `%d')\n",
-			i, area.height);
+		        i, area.height);
 
 		fprintf(tmpf, "define(`XRR_MONITOR_%d_X', `%d')\n",
-			i, area.x);
+		        i, area.x);
 
 		fprintf(tmpf, "define(`XRR_MONITOR_%d_Y', `%d')\n",
-			i, area.y);
+		        i, area.y);
 	}
 
 	/*
