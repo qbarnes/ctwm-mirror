@@ -599,9 +599,10 @@ RLayoutGetAreaByName(const RLayout *self, const char *name, int len)
 const char *
 RLayoutGetNameIndex(const RLayout *self, int index)
 {
-	if ((self->names != NULL) && 
-	    (index >= 0 && index < self->monitors->len))
+	if((self->names != NULL) &&
+	                (index >= 0 && index < self->monitors->len)) {
 		return self->names[index];
+	}
 
 	return NULL;
 }
