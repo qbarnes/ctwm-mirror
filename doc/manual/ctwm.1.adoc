@@ -344,6 +344,33 @@ COLOR::
   definition.  Returns ``Yes'' on `*Color`, and ``No'' on `StaticGray`
   and `GrayScale`.
 
+=== Monitor info as reported by the XrandR library
+
+XRR_MONITOR_COUNT::
+  The number of monitors.
+
+XRR_MONITOR_pass:[&#8203;]`monitorname`::
+  The monitor number of `monitorname`.
+
+XRR_MONITOR_pass:[&#8203;]`n`::
+  The name of monitor number `n`.
+
+XRR_MONITOR_pass:[&#8203;]`n`pass:[&#8203;]_WIDTH::
+  The width of monitor number `n`.
+
+XRR_MONITOR_pass:[&#8203;]`n`pass:[&#8203;]_HEIGHT::
+  The height of monitor number `n`.
+
+XRR_MONITOR_pass:[&#8203;]`n`pass:[&#8203;]_X::
+  The X offset of monitor number `n`.
+
+XRR_MONITOR_pass:[&#8203;]`n`pass:[&#8203;]_Y::
+  The Y offset of monitor number `n`.
+
+If the XrandR library services are unavailable, default values
+will be set to a screen layout's geometry with an empty monitor
+name.
+
 === ctwm compile-time options
 
 XPM::
